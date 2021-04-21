@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
-        myContext = this
+
+//        myContext = this
 
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
@@ -32,8 +33,15 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getPost()
 
-        viewModel.myResponse.observe(this, Observer {response->
-            Log.i("haha", response.toString())
+        viewModel.myResponse.observe(this, Observer { response ->
+            if (response.isSuccessful) {
+                Log.i("haha", response.body()?.userId.toString())
+                Log.i("haha", response.body()?.id.toString())
+                Log.i("haha", response.body()?.title!!)
+                Log.i("haha", response.body()?.body!!)
+            } else {
+                Log.i( "haha", response.errorBody().toString())
+            }
         })
 
     }

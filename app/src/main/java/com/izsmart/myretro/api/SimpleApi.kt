@@ -7,7 +7,7 @@ import retrofit2.http.GET
 interface SimpleApi {
 
     @GET("posts/1")
-    suspend fun getPost(): Post
+    suspend fun getPost(): Response<Post>
 
 //    @GET("posts")
 //    suspend fun getPosts(): Array<Post>
